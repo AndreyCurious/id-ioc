@@ -1,0 +1,38 @@
+.Usercard {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid gray;
+	margin-bottom: 5%;
+	padding: 2% 5%;
+}
+
+.Usercard-username {
+	color: rgb(4, 116, 58);
+	margin: 2% 0;
+}
+
+.Usercard-email {
+	color: rgb(77, 77, 239);
+	margin-bottom: 0.5%;
+}
+
+.Usercard-name {
+	margin-bottom: 2%;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.Usercard:hover {
+	border-color: blue;
+}
+
+.Usercard:hover .Usercard-email {
+	color: rgb(47, 47, 152);
+}
+
+.Usercard:hover .Usercard-username {
+	color: rgb(2, 70, 35);
+}
