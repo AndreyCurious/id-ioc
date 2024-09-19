@@ -1,26 +1,26 @@
 import React, { useLayoutEffect } from 'react';
-import {
-  useCurrentUserIdStorage,
-  useUsersStorage,
-} from '../../services/storeageAdapter';
-import { useUsers } from '../../services/apiAdapter';
 import Usercard from '../usercard/Usercard';
 import './index.css';
+import { useStore } from '../../Infrastructure/store';
+import { UserApi } from '../../Infrastructure/api/UserApi';
+import { UserService } from '../../application/services/userService';
+import { User } from '../../domain/User';
+import container from '../../container';
 
 function Main() {
-  const { users, updateUsers } = useUsersStorage();
-  const { getUsersAsync } = useUsers();
-  const { updateCurrentUserId } = useCurrentUserIdStorage();
+  const store = useStore();
+  const { users, updateUsers, updateCurrentUserId } = store;
+
+  const userApi = container.resolve(UserApi);
+
   useLayoutEffect(() => {
-    getUsersAsync('https://jsonplaceholder.typicode.com/users').then((res) =>
-      updateUsers(res)
-    );
-  }, [getUsersAsync, updateUsers]);
+    // userApi.getUsers().then((res) => updateUsers(res));
+  }, []);
 
   return (
     <div className="Main">
       {users ? (
-        users.map((user) => (
+        users.map((user: User) => (
           <Usercard
             updateCurrentUserId={updateCurrentUserId}
             key={user.id}

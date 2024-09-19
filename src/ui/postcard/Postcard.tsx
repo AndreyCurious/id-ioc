@@ -3,7 +3,6 @@ import './index.css';
 import { Post } from '../../domain/Post';
 
 function Postcard(props: { post: Post }) {
-  console.log(props.post);
   return (
     <section className="Postcard">
       <h4 className="Postcard-title">{props.post.title}</h4>

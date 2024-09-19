@@ -1,30 +1,30 @@
 import React, { useLayoutEffect } from 'react';
-import {
-  useCurrentUserIdStorage,
-  usePostsStorage,
-} from '../../services/storeageAdapter';
-import { usePosts } from '../../services/apiAdapter';
+
 import Postcard from '../postcard/Postcard';
 import './index.css';
-import { useShowPosts } from '../../application/showPosts';
+import { useStore } from '../../Infrastructure/store';
+import { Post } from '../../domain/Post';
+import { PostApi } from '../../Infrastructure/api/PostApi';
+import { PostService } from '../../application/services/postService';
+import { useParams } from 'react-router-dom';
 
 function Posts() {
-  const { currentUserId } = useCurrentUserIdStorage();
-  const { showPosts } = useShowPosts();
-  const { getPostsAsync } = usePosts();
-  const { posts } = usePostsStorage();
-
+  const store = useStore();
+  const { posts, updatePosts } = store;
+  const postService = new PostService();
+  const postApi = new PostApi(postService);
+  const userId = useParams().id;
   useLayoutEffect(() => {
-    getPostsAsync(
-      `https://jsonplaceholder.typicode.com/posts?userId=${currentUserId}`
-    ).then((res) => {
-      showPosts(res);
-    });
-  }, [currentUserId, showPosts]);
+    userId && postApi.getPosts(userId).then((res) => updatePosts(res));
+  }, []);
 
   return (
     <div className="Posts">
-      {posts ? posts.map((post) => <Postcard post={post} />) : <>Загрузка...</>}
+      {posts ? (
+        posts.map((post: Post) => <Postcard post={post} />)
+      ) : (
+        <>Загрузка...</>
+      )}
     </div>
   );
 }
