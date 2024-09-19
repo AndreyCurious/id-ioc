@@ -7,7 +7,7 @@ import "reflect-metadata";
 @injectable()
 export class UserApi {
   private userService: UserService;
-  constructor(@inject(UserService) userService: UserService) {
+  constructor(/* @inject(UserService) */ userService: UserService = new UserService()) {
     this.userService = userService;
   }
 

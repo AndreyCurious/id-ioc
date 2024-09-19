@@ -1,4 +1,4 @@
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { PostService } from '../../application/services/postService';
 import { Post } from '../../domain/Post';
 import "reflect-metadata";
@@ -7,7 +7,7 @@ import "reflect-metadata";
 
 export class PostApi {
   private postService: PostService;
-  constructor(postService: PostService) {
+  constructor(/* @inject(PostService)  */ postService: PostService = new PostService()) {
     this.postService = postService;
   }
   public async getPosts(userId: string): Promise<Post[]> {

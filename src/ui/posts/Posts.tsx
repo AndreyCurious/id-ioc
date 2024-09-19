@@ -21,7 +21,12 @@ function Posts() {
   return (
     <div className="Posts">
       {posts ? (
-        posts.map((post: Post) => <Postcard post={post} />)
+        posts.map((post: Post) => (
+          <Postcard
+            key={post.id}
+            post={post}
+          />
+        ))
       ) : (
         <>Загрузка...</>
       )}

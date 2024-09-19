@@ -14,7 +14,7 @@ function Main() {
   const userApi = container.resolve(UserApi);
 
   useLayoutEffect(() => {
-    // userApi.getUsers().then((res) => updateUsers(res));
+    userApi.getUsers().then((res) => updateUsers(res));
   }, []);
 
   return (
